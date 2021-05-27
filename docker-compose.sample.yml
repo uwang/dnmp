@@ -94,19 +94,34 @@ services:
 #    networks:
 #      - default
 
-  mysql:
-    image: mysql:${MYSQL_VERSION}
-    container_name: mysql
+  # mysql:
+  #   image: mysql:${MYSQL_VERSION}
+  #   container_name: mysql
+  #   ports:
+  #     - "${MYSQL_HOST_PORT}:3306"
+  #   volumes:
+  #     - ${MYSQL_CONF_FILE}:/etc/mysql/conf.d/mysql.cnf:ro
+  #     - ${DATA_DIR}/mysql:/var/lib/mysql/:rw
+  #   restart: always
+  #   networks:
+  #     - default
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
+  #     TZ: "$TZ"
+
+  mariadb:
+    image: mariadb:${MARIADB_VERSION}
+    container_name: mariadb
     ports:
-      - "${MYSQL_HOST_PORT}:3306"
+      - '${MARIADB_HOST_PORT}:3306'
     volumes:
-      - ${MYSQL_CONF_FILE}:/etc/mysql/conf.d/mysql.cnf:ro
-      - ${DATA_DIR}/mysql:/var/lib/mysql/:rw
+      - ${MARIADB_CONF_FILE}:/etc/mysql/conf.d/mysql.cnf:ro
+      - ${DATA_DIR}/mariadb:/var/lib/mysql:rw
     restart: always
     networks:
       - default
     environment:
-      MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
+      MYSQL_ROOT_PASSWORD: '${MARIADB_ROOT_PASSWORD}'
       TZ: "$TZ"
 
 #  mysql5:
@@ -193,7 +208,7 @@ services:
 #    networks:
 #      - default
 #    environment:
-#      - PMA_HOST=mysql
+#      - PMA_HOST=mariadb
 #      - PMA_PORT=3306
 #      - TZ=$TZ
 
